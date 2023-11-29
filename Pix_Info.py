@@ -1,1 +1,7 @@
-
+info =input()
+padrao_cnpj = re.compile(r'^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$')
+padrao_numero_ddd = re.compile(r'^\+\d{2}\(\d{2}\)\d{8,9}$')
+padrao_cpf = re.compile(r'^\d{3}\.\d{3}\.\d{3}-\d{2}$')
+padrao_chave_rapida = re.compile(r'^\d{2}\.[A-F0-9]{2}\.\d{2}\.[A-F0-9]{2}$')
+padrao_data = re.compile(r'^\d{2}/\d{2}/\d{4}$')
+padrao_hora = re.compile(r'^\d{2}:\d{2}$')
