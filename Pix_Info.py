@@ -1,6 +1,8 @@
 import re
 aprovado = True
 info =input()
+
+#criacao de padrões 
 padrao_cnpj = re.compile(r'^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$')
 padrao_numero_completo = re.compile(r'^\+55\(\d{2}\)\d{4,5}-\d{4}$')
 padrao_cpf = re.compile(r'^\d{3}\.\d{3}\.\d{3}-\d{2}$')
@@ -10,6 +12,7 @@ padrao_hora = re.compile(r'^([01][0-9]|2[0-3]):[0-5][0-9]$')
 padrao_email = re.compile(r'.+@.+')
 chaves = []
 
+#separar o codigo em 3 partes
 inicio=""
 meio="=========="
 final=""
@@ -27,6 +30,7 @@ inicio_final+=10
 for y in range(inicio_final,len(info)):
   final+=info[y]
 
+#listar chaves encontradas
 cpf_encontrado=padrao_cpf.findall(inicio)
 chaves+=cpf_encontrado
 cnpj_encontrado=padrao_cnpj.findall(inicio)
