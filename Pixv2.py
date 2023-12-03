@@ -1,16 +1,8 @@
 import re
 aprovado = True
-info ="""04.280.196/0001-76 uea@uea.edu.br +55(92)3348-7601
+info=input()
 
-09.628.825/0001-20 03.A4.2B.F8
-
-==========
-
-uea@uea.edu.br 09.628.825/0001-20 R$ 1.000.000,00 09/01/2023 09:03 ABC@@1234abc
-
-03.A4.2B.F8 +55(92)3348-7601 R$ 2.000.000,00 08/01/2022 10:10 FG@H*12ab34c"""
-
-padrao_cnpj = re.compile(r'^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$')
+padrao_cnpj = re.compile(r'^\d{2,3}\.\d{3}\.\d{3}/\d{4}-\d{2}$')
 padrao_telefone= re.compile(r'^\+55\(\d{2}\)\d{4,5}-\d{4}$')
 padrao_cpf = re.compile(r'^\d{3}\.\d{3}\.\d{3}-\d{2}$')
 padrao_chaves_rapidas = re.compile(r'\b[0-9A-Fa-f]{2}(?:\.[0-9A-Fa-f]{2}){3}\b')
@@ -23,32 +15,28 @@ inicio=""
 meio="=========="
 final=""
 
-inicio_final=0
-for x in range(len(info)):
-  if info[x]!="=":
-    inicio += info[x]
-  else:
-    inicio_final=x
-    break
-    
-inicio_final+=10
+inicio_final = info.find(meio) + len(meio)
 
-for y in range(inicio_final,len(info)):
-  final+=info[y]
+# Separar o início até o ponto onde as igualdades terminam
+inicio = info[:inicio_final]
 
-inicio = inicio.split()
-for z in range (len(inicio)):
-    cnpj_encontrado = padrao_cnpj.findall(inicio[z])
-    chaves+=cnpj_encontrado
-    cpf_encontrado = padrao_cpf.findall(inicio[z])
-    chaves+=cpf_encontrado
-    email_encontrado = padrao_email.findall(inicio[z])
-    chaves+=email_encontrado
-    telefone_encontrado = padrao_telefone.findall(inicio[z])
-    chaves+=telefone_encontrado
-    chave_encontrado = padrao_chaves_rapidas.findall(inicio[z])
-    chaves+=chave_encontrado
-    
+# O final é tudo após o ponto onde as igualdades terminam
+final = info[inicio_final:]
+
+# Verificar se 'inicio' não está vazio antes de dividir
+if inicio:
+    inicio = inicio.split()
+    for z in range(len(inicio)):
+        cnpj_encontrado = padrao_cnpj.findall(inicio[z])
+        chaves += cnpj_encontrado
+        cpf_encontrado = padrao_cpf.findall(inicio[z])
+        chaves += cpf_encontrado
+        email_encontrado = padrao_email.findall(inicio[z])
+        chaves += email_encontrado
+        telefone_encontrado = padrao_telefone.findall(inicio[z])
+        chaves += telefone_encontrado
+        chave_encontrado = padrao_chaves_rapidas.findall(inicio[z])
+        chaves += chave_encontrado
+
     
 
-print(chaves)
